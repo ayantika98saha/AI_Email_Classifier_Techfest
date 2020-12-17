@@ -1,0 +1,53 @@
+{% extends 'mail_classifier/base.html' %}
+
+{% block content %}
+<style>
+    .s7{
+        height: 60%;
+    }
+    .s7 table{
+        border: 3px solid white;
+        padding: 5%;
+        border-radius: 5px;
+        overflow: overlay;
+        position: absolute;
+        top: 150px;
+    }
+    .top-buttons{
+        margin: 3% 6%;
+        width: 21%;
+        cursor:default;
+    }    
+    .s5{
+        margin-top: 80px;
+    }
+    .s5 form{
+        border: 3px solid white;
+        border-radius: 5px;
+        padding: 15px;
+    }
+</style>
+<div class="main row">
+    <a class="btn-large top-buttons grey">Upload training data</a>
+    <a class="btn-large top-buttons grey">Model selection</a>
+    <a class="btn-large top-buttons purple accent-2">Testing</a>   
+    {% if model %} 
+        <form method="post" class="container" action="{% url 'result' %}" target="_blank" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="file-field input-field">
+                <div class="btn">
+                  <span>Upload Sample Mails<i class="material-icons right">mail</i></span>
+                  <input type="file" name="test_input">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text" placeholder="No File"><br><br>
+                </div>
+            </div>            
+            <input type="submit" class="right btn-small" />
+        </form>
+        {% else %}
+        <h4 class="center">Currently you have no trained model</h4>
+        <h3 class="center"><a href="{% url 'upload' %}">Train your model from here</a></h3>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'mail_classifier/base.html' %}
+
+{% block content %}
+<style>
+    .main{
+        padding: 0 5%;
+    }
+    .main .btn-large{
+        margin: 3% 6%;
+        width: 21%;
+        cursor:default;
+    }
+
+</style>
+<div class="main">
+    <a class="btn-large grey">Upload training data</a>
+    <a class="btn-large purple accent-2">Model selection</a>
+    <a class="btn-large grey">Testing</a>
+    <h4>Best Model</h4>
+    {% if best_model %}
+    <p>Model Name : {{ best_model }}</p>
+    <p>The preliminary confidence on prediction is {{ accuracy }} %</p>
+    {% endif %}
+    <hr>
+    <a href="{% url 'train_all' %}" class="btn">Try other models with paramenter tuning<i class="material-icons right">shuffle</i></a>
+    <a href="{% url 'result' %}" class="purple accent-2 right btn">Save & Proceed<i class="material-icons right">send</i></a>
+</div>
+{% endblock %}

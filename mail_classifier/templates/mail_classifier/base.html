@@ -1,0 +1,42 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mail Classifier - Techfest, IIT Bombay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        body{
+            color: aliceblue;
+        }
+    </style>
+</head>
+<body class="grey darken-4">
+    <nav>
+        <div class="purple nav-wrapper">
+          <!-- <a href="#" class="brand-logo">Logo</a> -->
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="{% url 'home' %}" title="Home"><i class="large material-icons">home</i></a></li>
+            {% if user.is_authenticated %}
+            <li><a href="" title="{{user}}"><i class="large material-icons">account_circle</i></a></li>
+            <li><a href="{% url 'upload' %}">Dashboard</a></li>
+            <li><a href="{% url 'result' %}">Use Trained Model</a></li>
+            <li><a href="javascript:{document.getElementById('logout').submit()}">Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}" class="btn-small purple accent-2">Log In</a></li>
+            <li><a href="{% url 'signup' %}" class="btn-small purple accent-2">Sign Up</a></li>
+            {% endif %}
+            <form action="{% url 'logout' %}" style="margin: 0;" id="logout" method="post">
+              {% csrf_token %}
+              <input type="hidden">
+            </form>            
+          </ul>
+        </div>
+      </nav>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
